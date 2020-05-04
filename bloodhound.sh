@@ -8,7 +8,7 @@
 # TODO: Make the target list into an external wordlist and implement argument parsing 
 #
 
-targets=("token" "key" "api" "amazonaws" "username" "password" "pass" "credential" "secret" "todo" "vulnerable" "random" "hmac" "md5" "sha-1" "sha-2" "hash" "csrf" "hostname" "auth")
+targets=("token" "key" "api" "amazonaws" "username" "password" "pass" "credential" "secret" "todo" "vulnerable" "random" "hmac" "md5" "sha-1" "sha-2" "hash" "csrf" "hostname" "auth" "bucket" "ec2")
 inputfile=input.js
 
 while read LINE; do
