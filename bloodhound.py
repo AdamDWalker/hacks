@@ -4,7 +4,7 @@
     File Name: bloodhound.py
     Author: Adam Walker
     Date Created: 07/09/2020
-    Date Last Modified: 08/09/2020
+    Date Last Modified: 09/09/2020
 '''
 
 import re
@@ -48,6 +48,7 @@ with open(pattern_file) as f:
 ## and what the matching pattern was
 def hunt():
     file = open(target_file, "r")
+    line_num = 1
     for line in file:
         for target in data:
             for pattern in data[target]['values']:
@@ -55,8 +56,11 @@ def hunt():
                 if found:
                 # if re.search(pattern, line):
                     # print(result.group(0))
-                    output = f"%s[{target_file}]%s - Found pattern [{data[target]['key']}]: %s {found.group(0)}" % (G, Y, W)
+                    output = f"%s[{target_file}:{line_num}]%s - Found pattern [{data[target]['key']}]: %s {line}" % (G, Y, W)
                     print(output)
+                    break
+
+        line_num = line_num + 1
 
 
 ## Let's get on with it
