@@ -1,0 +1,8 @@
+echo "hello there"
+echo "two"
+echo "this is the third command"
+sleep 10
+mkdir proof-folder
+cd proof-folder
+touch proof.txt
+echo "all done"

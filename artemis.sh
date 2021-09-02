@@ -29,17 +29,30 @@ echo ""
 echo $'\e[32m'"----- Sublist3r Started -----" $'\e[0m'
 python /home/adam/tools//Sublist3r/sublist3r.py -d $1 -o $domain/sublist3r_subs.txt
 
+
+## Waybackurls and GAU return every url they can find, not just subs, so they should go elsewhere
+#echo ""
+#echo $'\e[32m'"----- WaybackURLS Started -----" $'\e[0m'
+#waybackurls $domain >> $domain/wayback_subs.txt
+
+#echo ""
+#echo $'\e[32m'"----- GAU Started -----" $'\e[0m'
+#gau $domain >> $domain/gau_subs.txt
+
+
 ## Put everything into one file, remove any <BR> bullshit that sublist3r likes to add and remove duplicates
 cat $domain/amass_subs.txt $domain/asset_subs.txt $domain/sublist3r_subs.txt | sed 's/<BR>/\n/g' | sort -u > $domain/subdomains.txt
-#
+
 rm $domain/asset_subs.txt
 rm $domain/amass_subs.txt
 rm $domain/sublist3r_subs.txt
+#rm $domain/wayback_subs.txt
+#rm $domain/gau_subs.txt
 
 echo ""
 echo $'\e[32m'"Finding Live Subdomains..." $'\e[0m'
 cat $domain/subdomains.txt | httprobe -c 50 -t 3000 > $domain/live_subdomains.txt
-sort -u live_subdomains.txt
+sort -u $domain/live_subdomains.txt
 
 echo ""
 echo $'\e[1;32m'"----- Subdomain Search Completed -----" $'\e[0m'
@@ -107,6 +120,8 @@ grep -i ".css$" ${domain}/links.txt | sort -u >> ${domain}/files/css.txt
 echo ""
 echo $'\e[32m'"Finding Images..." $'\e[0m'
 grep -iE ".png$|.jpg$|.svg$|.gif$" ${domain}/links.txt | sort -u >> ${domain}/files/images.txt
+
+
 #
 # # robots //
 # # all links
@@ -123,7 +138,7 @@ grep -iE ".png$|.jpg$|.svg$|.gif$" ${domain}/links.txt | sort -u >> ${domain}/fi
 # # Get Screenshots //
 # # Get IP addresses, ranges, CIDR, hostnames
 # # Get live subdomains
-# # Get waybackurls
+# # Get waybackurls //
 # # Get vulnerable endpoints
 # # Get JS code
 # # Get links

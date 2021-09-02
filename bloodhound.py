@@ -9,6 +9,7 @@
 
 import re
 import json
+import sys
 
 # TODO:
 # Print cool banner //
@@ -25,8 +26,9 @@ R = '\033[91m'  # red
 W = '\033[0m'   # white
 
 
-target_file = "test.txt"
-pattern_file = "patterns.json"
+#target_file = "../../APKs/Decompiled/arlo_2.19.1_28105.apk/res/values/strings.xml"
+target_file = sys.argv[1]
+pattern_file = "/home/adam/Documents/Git/hacks/patterns.json"
 
 def banner():
     print("""%s
@@ -37,7 +39,6 @@ def banner():
 |____/|_|\___/ \___/ \__,_|_| |_|\___/ \__,_|_| |_|\__,_|
 %s
 """ % (R, Y))
-
 
 with open(pattern_file) as f:
     data = json.load(f)
@@ -56,7 +57,7 @@ def hunt():
                 if found:
                 # if re.search(pattern, line):
                     # print(result.group(0))
-                    output = f"%s[{target_file}:{line_num}]%s - Found pattern [{data[target]['key']}]: %s {line}" % (G, Y, W)
+                    output = f"%s[{target_file}:{line_num}]%s - Found pattern [{data[target]['key']}]: %s {found.group(0)}" % (G, Y, W)
                     print(output)
                     break
 
@@ -65,4 +66,5 @@ def hunt():
 
 ## Let's get on with it
 banner()
+print("Beginning scan...\n\n")
 hunt()
